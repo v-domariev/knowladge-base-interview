@@ -1,0 +1,2 @@
+1. difference between monolith and microservices?
+Answer: https://www.atlassian.com/microservices/microservices-architecture/microservices-vs-monolith
