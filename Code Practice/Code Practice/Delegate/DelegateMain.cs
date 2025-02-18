@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Net.WebSockets;
 using System.Runtime.InteropServices.Marshalling;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +17,7 @@ namespace Code_Practice.Delegate
             Example1();
             Example2();
             Example3Calculate();
+            Example4Similarity();
         }
 
         delegate void Message();
@@ -71,7 +74,7 @@ namespace Code_Practice.Delegate
                 return Convert.ToInt64(x / y);
             };
 
-            operation = customDelegateDivision;
+            // operation = customDelegateDivision; // Not working, cause "customDelegateDivision" it is lambda. But not the delegate.
             result = operation(10023, 5);
             Console.WriteLine($"Devide by zero: {result}");
 
@@ -91,6 +94,64 @@ namespace Code_Practice.Delegate
             int Add(int x, int y) => x + y;
             int Multiply(int x, int y) => x * y;
             int Module(int x, int y) => x % y;
+
+        }
+
+        delegate void SomeDel(int a, double b);
+        delegate Int64 Operation2(int x, int y);
+
+        public void Example4Similarity() 
+        {
+            SomeDel someDel = SomeMethod1;
+            someDel(3, 5);
+            
+            void SomeMethod1(int d, double n) 
+            {
+                Console.WriteLine($"Parameter d: {d}");
+                Console.WriteLine($"Parameter n: {n}");
+                var res = d * -n;
+                Console.WriteLine($"res: {res}");
+            }
+
+
+
+            Operation2 operation = customDelegateDivision;
+            //operation = (int x, int y) => {
+            Int64 customDelegateDivision(int x, int y)
+            {
+                if (x == 0)
+                {
+                    throw new InvalidOperationException("Can't devide by zero");
+                }
+                var res = x/y;
+                return Convert.ToInt64(x / y);
+            };
+            
+            // operation = customDelegateDivision; // Not working, cause "customDelegateDivision" it is lambda. But not the delegate.
+            var result = operation(10023, 5);
+            Console.WriteLine($"Devide by zero: {result}");
+
+            try
+            {
+                result = operation(0, 5);
+                Console.WriteLine($"Devide by zero: {result}");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.StackTrace);
+                throw new InvalidCastException("dev by Z", e); // Set InnerException. So that will be info about REAL StackTrace in Exception. 
+            }
+            /*
+            catch (InvalidOperationException ex)
+            {
+                Console.WriteLine("Devide by zero");
+
+                throw ex; // At interview asked: throw ex; VS throw new Exception();
+                // In my opinion: throw new Exception(ex.StactTrace, COPY_SOME_ATTRIBUTES);
+                // UPD: Some bulshit, because "ex.StackTrace" showing source path of exception this line, during the runtime.
+                // But not the real place of exception, where was diveded by zero.
+            }
+            */
 
         }
     }
