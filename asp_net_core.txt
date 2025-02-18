@@ -1,0 +1,2 @@
+1. OAuth2.0 :
+https://stackoverflow.com/questions/73658327/how-to-implement-oauth2-0-authentication-token-in-asp-net-core-web-api
