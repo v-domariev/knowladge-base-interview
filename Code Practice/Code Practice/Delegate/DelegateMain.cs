@@ -13,14 +13,17 @@ namespace Code_Practice.Delegate
     {
         // WebSiteLink: https://metanit.com/sharp/tutorial/3.13.php
         // Stopped at topic: "Добавление методов в делегат"
+
+        // Суть: Однако наиболее сильная сторона делегатов состоит в том, что они позволяют делегировать выполнение некоторому коду извне.
         public void Execute()
         {
             //Example1();
             //Example2();
             //Example3Calculate();
-            Example4Similarity();
+            //Example4Similarity();
             //Example5AddDelegate();
-            Example6CallDelegateByInvoke();
+            //Example6CallDelegateByInvoke();
+            MyExample1RefOperation();
         }
 
         delegate void Message();
@@ -104,8 +107,9 @@ namespace Code_Practice.Delegate
         delegate Int64 Operation2(int x, int y);
         delegate T Operation3Generic<T, K, V>(K x, V y);
 
-        private T DoOperation<T, K, V>(K a, V b, Operation3Generic<T, K, V> op) 
+        private T DoOperation<T, K, V>(K a, V b, Operation3Generic<T, K, V> op)
         {
+            Console.WriteLine($"You in DoOperation; That is your parameters: a={a}, b={b}");
             return op.Invoke(a, b);
         }
         public void Example4Similarity()
@@ -129,7 +133,8 @@ namespace Code_Practice.Delegate
             //Operation3Generic<Double, Int64, Int64> operation3Generic = customDelegateDivision;
             //Operation3Generic<long, int, int> operation3Generic = customDelegateDivision;
             Operation3Generic<Int64, int, int> operation3Generic = customDelegateDivision;
-            Console.WriteLine($"operation3Generic: {operation3Generic.Invoke(1200, 4)}");
+            //Console.WriteLine($"operation3Generic: {operation3Generic.Invoke(1200, 4)}");
+            Console.WriteLine($"operation3Generic: {DoOperation(1200, 4, operation3Generic)}");
             //devideGeneric<Tag()
 
             //operation = (int x, int y) => {
@@ -244,5 +249,38 @@ namespace Code_Practice.Delegate
             int Add(int x, int y) => x + y;
         }
 
+
+        delegate ref int RefOperation(ref int x, ref int y);
+
+        public void MyExample1RefOperation() // Consiquence operation execution on the one final result.
+        {
+            RefOperation del = Add;
+            del += Multiply;
+            int x = 6;
+            int y = 5;
+            //int result = del(6, 5);
+            int result = del(ref x, ref y);
+            Console.WriteLine(result);
+            Console.Read();
+        }
+        private ref int Add(ref int x, ref int y)
+        {
+            x = x + y;
+            return ref x;
+        }
+        private ref int Multiply(ref int x, ref int y) {
+            x = x* y;
+            return ref x;
+        }
     }
+
+
+    /*
+
+    // Устанавливаем красный цвет символов
+    Console.ForegroundColor = ConsoleColor.Red;
+    Console.WriteLine(message);
+    // Сбрасываем настройки цвета
+    Console.ResetColor();
+        */
 }
