@@ -12,12 +12,15 @@ namespace Code_Practice.Delegate
     internal class DelegateMain
     {
         // WebSiteLink: https://metanit.com/sharp/tutorial/3.13.php
+        // Stopped at topic: "Добавление методов в делегат"
         public void Execute()
         {
-            Example1();
-            Example2();
-            Example3Calculate();
+            //Example1();
+            //Example2();
+            //Example3Calculate();
             Example4Similarity();
+            //Example5AddDelegate();
+            Example6CallDelegateByInvoke();
         }
 
         delegate void Message();
@@ -99,13 +102,18 @@ namespace Code_Practice.Delegate
 
         delegate void SomeDel(int a, double b);
         delegate Int64 Operation2(int x, int y);
+        delegate T Operation3Generic<T, K, V>(K x, V y);
 
-        public void Example4Similarity() 
+        private T DoOperation<T, K, V>(K a, V b, Operation3Generic<T, K, V> op) 
+        {
+            return op.Invoke(a, b);
+        }
+        public void Example4Similarity()
         {
             SomeDel someDel = SomeMethod1;
             someDel(3, 5);
-            
-            void SomeMethod1(int d, double n) 
+
+            void SomeMethod1(int d, double n)
             {
                 Console.WriteLine($"Parameter d: {d}");
                 Console.WriteLine($"Parameter n: {n}");
@@ -116,6 +124,14 @@ namespace Code_Practice.Delegate
 
 
             Operation2 operation = customDelegateDivision;
+
+
+            //Operation3Generic<Double, Int64, Int64> operation3Generic = customDelegateDivision;
+            //Operation3Generic<long, int, int> operation3Generic = customDelegateDivision;
+            Operation3Generic<Int64, int, int> operation3Generic = customDelegateDivision;
+            Console.WriteLine($"operation3Generic: {operation3Generic.Invoke(1200, 4)}");
+            //devideGeneric<Tag()
+
             //operation = (int x, int y) => {
             Int64 customDelegateDivision(int x, int y)
             {
@@ -123,10 +139,10 @@ namespace Code_Practice.Delegate
                 {
                     throw new InvalidOperationException("Can't devide by zero");
                 }
-                var res = x/y;
+                var res = x / y;
                 return Convert.ToInt64(x / y);
             };
-            
+
             // operation = customDelegateDivision; // Not working, cause "customDelegateDivision" it is lambda. But not the delegate.
             var result = operation(10023, 5);
             Console.WriteLine($"Devide by zero: {result}");
@@ -153,6 +169,80 @@ namespace Code_Practice.Delegate
             }
             */
 
+
         }
+
+
+        delegate void TelegramMessage();
+        private void Example5AddDelegate()
+        {
+            TelegramMessage? telegramMessage = Hello;
+            telegramMessage += Hello;
+            telegramMessage += HowAreYou;
+            telegramMessage += Fine;
+            telegramMessage += Bye;
+            telegramMessage += Bye;
+
+            if (telegramMessage != null)
+            {
+                telegramMessage();
+            }
+            Console.WriteLine("telegramMessage();");
+
+            telegramMessage = null;
+
+            telegramMessage += Hello;
+            telegramMessage += Why;
+            telegramMessage += Fine;
+            telegramMessage += Hello;
+            telegramMessage += Why;
+            telegramMessage += Fine;
+            telegramMessage -= Why; // <- removing from end of array.
+            if (telegramMessage != null)
+            {
+                telegramMessage();
+            }
+
+            void Hello() => Console.WriteLine("Hello!");
+            void HowAreYou() => Console.WriteLine("How are you?");
+            void Fine() => Console.WriteLine("Fine");
+            void Bye() => Console.WriteLine("Bye");
+            void Why() => Console.WriteLine("Why");
+
+            Console.WriteLine("join delegates -> call only mes3  ");
+            Message mes1 = Hello;
+            Message mes2 = HowAreYou;
+            Message mes3 = mes1 + mes2; // объединяем делегаты
+            mes3(); // вызываются все методы из mes1 и mes2
+
+        }
+
+        public void Example6CallDelegateByInvoke()
+        {
+
+            Message mes = Hello;
+            mes.Invoke(); // Hello
+            Operation op = Add;
+            int n = op.Invoke(3, 4);
+            Console.WriteLine(n);   // 7
+
+            void Hello() => Console.WriteLine("Hello");
+            int Add(int x, int y) => x + y;
+
+        }
+
+        public void Example7CallDelegateByInvoke()
+        {
+
+            Message? mes = null;
+            mes?.Invoke();        // ошибки нет, делегат просто не вызывается
+
+            Operation? op = Add;
+            op -= Add;          // делегат op пуст
+            int? n = op?.Invoke(3, 4);   // ошибки нет, делегат просто не вызывается, а n = null}
+            void Hello() => Console.WriteLine("Hello");
+            int Add(int x, int y) => x + y;
+        }
+
     }
 }
