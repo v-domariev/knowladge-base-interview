@@ -7,8 +7,14 @@ namespace Code_Practice
         static void Main(string[] args)
         {
             Console.WriteLine("Hello, World!");
-            DelegateMain delegateMain =new DelegateMain();
-            delegateMain.Execute();
+            //DelegateMain1 delegateMain =new DelegateMain1();
+            //delegateMain.Execute();
+            AnonymousMethod2 anonymousMethod2 = new AnonymousMethod2();
+            anonymousMethod2.Execute();
+
+
+
+
         }
     }
 }

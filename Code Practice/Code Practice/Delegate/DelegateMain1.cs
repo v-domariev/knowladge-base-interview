@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Code_Practice.Delegate
 {
-    internal class DelegateMain
+    internal class DelegateMain1
     {
         // WebSiteLink: https://metanit.com/sharp/tutorial/3.13.php
         // Stopped at topic: "Добавление методов в делегат"
