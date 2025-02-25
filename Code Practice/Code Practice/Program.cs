@@ -9,10 +9,11 @@ namespace Code_Practice
             Console.WriteLine("Hello, World!");
             //DelegateMain1 delegateMain =new DelegateMain1();
             //delegateMain.Execute();
-            AnonymousMethod2 anonymousMethod2 = new AnonymousMethod2();
-            anonymousMethod2.Execute();
+            //AnonymousMethod2 anonymousMethod2 = new AnonymousMethod2();
+            //anonymousMethod2.Execute();
 
-
+            Lambda3 lambda3 = new Lambda3();
+            lambda3.Execute();
 
 
         }
