@@ -12,8 +12,11 @@ namespace Code_Practice
             //AnonymousMethod2 anonymousMethod2 = new AnonymousMethod2();
             //anonymousMethod2.Execute();
 
-            Lambda3 lambda3 = new Lambda3();
-            lambda3.Execute();
+            //Lambda3 lambda3 = new Lambda3();
+            //lambda3.Execute();
+            
+            Events4 events4 = new Events4();
+            events4.Execute();
 
 
         }
