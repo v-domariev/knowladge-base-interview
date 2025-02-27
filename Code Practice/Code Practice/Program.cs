@@ -15,8 +15,11 @@ namespace Code_Practice
             //Lambda3 lambda3 = new Lambda3();
             //lambda3.Execute();
             
-            Events4 events4 = new Events4();
-            events4.Execute();
+            //Events4 events4 = new Events4();
+            //events4.Execute();
+            
+            CovarianceAndContravariance5 covarianceAndContravariance5 = new CovarianceAndContravariance5();
+            covarianceAndContravariance5.Execute();
 
 
         }

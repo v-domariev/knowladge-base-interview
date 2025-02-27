@@ -44,7 +44,6 @@ namespace Code_Practice.Delegate
                 А через второй параметр можно получить инфомацию о состоянии операции.
                 */
 
-
                 Console.WriteLine($"Сумма транзакции: {e.Sum}");
                 Console.WriteLine(e.Message);
                 Console.WriteLine($"Текущая сумма на счете: {sender.Sum}");
