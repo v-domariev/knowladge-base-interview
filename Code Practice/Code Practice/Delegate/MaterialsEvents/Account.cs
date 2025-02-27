@@ -8,7 +8,7 @@ namespace Code_Practice.Delegate.MaterialsEvents
 {
     public class Account
     {
-        public delegate void AccountHandler(string message);
+        public delegate void AccountHandler(Account sender, AccountEventArgs e);
         private event AccountHandler? notify;
         
         public event AccountHandler Notify 
@@ -37,7 +37,7 @@ namespace Code_Practice.Delegate.MaterialsEvents
         //public void Put(int sum) => Sum += sum;
         public void Put(int sum) {
             Sum += sum;
-            notify?.Invoke($"На счет поступило: {sum}");
+            notify?.Invoke(this, new AccountEventArgs($"На счет поступило: {sum}", sum));
         }
 
         public void Take(int sum)
@@ -45,11 +45,11 @@ namespace Code_Practice.Delegate.MaterialsEvents
             if (Sum >= sum)
             {
                 Sum -= sum;
-                notify?.Invoke($"Со счета снято: {sum}");
+                notify?.Invoke(this, new AccountEventArgs($"Со счета снято: {sum}", sum));
             }
             else 
             {
-                notify?.Invoke($"Недостаточно денег на счете. Текущий баланс: {Sum}");
+                notify?.Invoke(this, new AccountEventArgs($"Недостаточно денег на счете. Текущий баланс: {Sum}", sum));
             }
         }
 
