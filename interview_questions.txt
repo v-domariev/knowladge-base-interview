@@ -1,0 +1,16 @@
+C#:
+1) upcast - что такое and downcast
+Answer:
+void downcast() {
+	Person pers1 = new Person();
+	Employee emp1 = (Employee)pers1;
+}
+2) upcast:
+Answer:
+void upcast() {
+	Person pers1 = new Person();
+	Object object1 = (Object)pers1;
+
+}
+
+	
