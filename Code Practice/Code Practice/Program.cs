@@ -18,8 +18,11 @@ namespace Code_Practice
             //Events4 events4 = new Events4();
             //events4.Execute();
             
-            CovarianceAndContravariance5 covarianceAndContravariance5 = new CovarianceAndContravariance5();
-            covarianceAndContravariance5.Execute();
+            //CovarianceAndContravariance5 covarianceAndContravariance5 = new CovarianceAndContravariance5();
+            //covarianceAndContravariance5.Execute();
+            
+            ActionPredicateFunc6 actionPredicateFunc6 = new ActionPredicateFunc6();
+            actionPredicateFunc6.Execute();
 
 
         }
