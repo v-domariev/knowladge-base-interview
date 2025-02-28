@@ -10,6 +10,7 @@ namespace Code_Practice.Delegate
     public class CovarianceAndContravariance5
     {
         // WebSiteLink: https://metanit.com/sharp/tutorial/3.28.php
+        // Questions for testing: https://metanit.com/sharp/questions/2.18.php
         public CovarianceAndContravariance5()
         {
         }
@@ -19,7 +20,8 @@ namespace Code_Practice.Delegate
             //this.Example1Covariance();
             //this.Example2Contravariance();
             //this.Example3GenericDelegatesCovariance();
-            this.Example4GenericDelegatesContravariance();
+            //this.Example4GenericDelegatesContravariance();
+            this.Example5CombiningCovarianceAndContravariance();
         }
 
 
@@ -75,9 +77,9 @@ namespace Code_Practice.Delegate
          То есть, если грубо обобщить, ковариантность - это от более производного к более общему типу (EmailMessage -> Message), 
             а контрвариантность - от более общего к более производному типу (Message -> EmailMessage).
          */
-        delegate void MessageReceiver<in T>(T message); 
+        delegate void MessageReceiver<in T>(T message);
         // Parameter "in" downcasting
-        public void Example4GenericDelegatesContravariance() 
+        public void Example4GenericDelegatesContravariance()
         {
             MessageReceiver<Message> messageReceiver = (Message message) => message.Print();
             MessageReceiver<EmailMessage> emailMessageReceiver = messageReceiver;
@@ -90,5 +92,29 @@ namespace Code_Practice.Delegate
             //emailMessageReceiver.Invoke(new Message("Kitty;!")); // not works
         }
 
+
+        // Можно использовать "in", "out" для разных генериков два в одно и тоже время.
+        delegate E MessageConverter<in M, out E>(M message);
+        //Здесь делегат MessageConverter представляет условное действие, которое конвертирует объект типа M в тип E.
+        public void Example5CombiningCovarianceAndContravariance()
+        {
+            MessageConverter<Message, EmailMessage> toEmailConverter = (Message message) => new EmailMessage(message.Text);
+
+            MessageConverter<SmsMessage, Message> converter = toEmailConverter;
+            Message message = converter(new SmsMessage("Hello work"));
+
+            Message message1 = toEmailConverter(new SmsMessage("hi"));
+            message.Print();
+            message1.Print();
+
+        }
+        /*
+         
+         Здесь делегат MessageConverter представляет условное действие, которое конвертирует объект типа M в тип E.
+
+В программе определена переменная converter, которая представляет тип MessageConverter<SmsMessage, Message> - то есть конвертер из типа SmsMessage в любой тип Message, грубо говоря преобразует смс в любой другой тип сообщения.
+
+Этой переменной можно передать действие - toEmailConverter, которое из сообщений любого типа создает объект Email-сообщения. Здесь применяется контравариантность: для параметра вместо производного типа SmsMessage применяется базовый тип Message. И также есть ковариантность: вместо возвращаемого типа Message используется производный тип EmailMessage.
+         */
     }
 }
