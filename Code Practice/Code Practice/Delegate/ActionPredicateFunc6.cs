@@ -13,6 +13,7 @@ namespace Code_Practice.Delegate
         public void Execute()
         {
             this.Example1Action();
+            this.Example2Predicate();
         }
         // Action - do something. Return nothing.
         //public delegate void Action();
@@ -37,5 +38,28 @@ namespace Code_Practice.Delegate
 
             void ShowAtConsole(string a1, string a2, string a3, string a4, string a5, string a6) => Console.WriteLine($"  {a1},   {a2},   {a3},   {a4},   {a5},   {a6}");
         }
+
+        //Predicate<T> - принимает один параметр, возвращает значение типа bool.
+        //delegate bool Predicate<in T>(T obj);
+        // Compare object "T" -> return bool result.
+        public void Example2Predicate()
+        {
+            Console.Write("Example2Predicate");
+            Predicate<int> isPositive = (int x) => x > 0;
+
+            Console.WriteLine(isPositive(20));
+            Console.WriteLine(isPositive(-20));
+
+            Predicate<string> isStartingWithPlus = (string phoneNumber) =>
+            {
+                Console.WriteLine($"INput: {phoneNumber}");
+                return phoneNumber.StartsWith("+");
+            };
+
+            Console.WriteLine(isStartingWithPlus("+2315415"));
+            Console.WriteLine(isStartingWithPlus("2315415"));
+
+        }
+
     }
 }
