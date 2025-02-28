@@ -12,8 +12,9 @@ namespace Code_Practice.Delegate
         // Built-in delegates: Action, Predicate, Func, ...;
         public void Execute()
         {
-            this.Example1Action();
-            this.Example2Predicate();
+            //this.Example1Action();
+            //this.Example2Predicate();
+            this.Example3Func();
         }
         // Action - do something. Return nothing.
         //public delegate void Action();
@@ -59,6 +60,29 @@ namespace Code_Practice.Delegate
             Console.WriteLine(isStartingWithPlus("+2315415"));
             Console.WriteLine(isStartingWithPlus("2315415"));
 
+        }
+
+        // Func - принимает и возвращет результат.
+        //от Func<out T>(), где T - тип возвращаемого значения, до Func<in T1, in T2,...in T16, out TResult>(), то есть может принимать до 16 параметров.
+        //Func<out T> параметр "out" всегда есть.
+        public void Example3Func()
+        {
+            int result1 = DoOperation(6, DoubleNumber);
+            Console.WriteLine(result1);
+
+            int result2 = DoOperation(6, SquareNumber);
+            Console.WriteLine(result2);
+
+            int DoOperation(int n, Func<int, int> operation) => operation(n);
+            int DoubleNumber(int n) => 2 * n;
+            int SquareNumber(int n) => n * n;
+            // EXample 2:
+            //Func<int, int, string> createString = (a, b) => $"{a}{b}";
+            //Func<int, int, double> createString = (a, b) => ((double)b / (double)a);
+            //Func<int, int, int> createString = (a, b) => ((double)b / (double)a); // not works, raise Exception. Because return value type requires "int", but not "double".
+            Console.WriteLine(createString(1, 5));
+            Console.WriteLine(createString(3, 5));
+            // Разобраться с параметром "out TResult>".
         }
 
     }
