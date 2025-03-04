@@ -21,8 +21,12 @@ namespace Code_Practice
             //CovarianceAndContravariance5 covarianceAndContravariance5 = new CovarianceAndContravariance5();
             //covarianceAndContravariance5.Execute();
             
-            ActionPredicateFunc6 actionPredicateFunc6 = new ActionPredicateFunc6();
-            actionPredicateFunc6.Execute();
+            //ActionPredicateFunc6 actionPredicateFunc6 = new ActionPredicateFunc6();
+            //actionPredicateFunc6.Execute();
+
+            
+            Closure7 closure7 = new Closure7();
+            closure7.Execute();
 
 
         }

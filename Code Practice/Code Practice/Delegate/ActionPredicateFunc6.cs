@@ -62,7 +62,7 @@ namespace Code_Practice.Delegate
 
         }
 
-        // Func - принимает и возвращет результат.
+        // Func - принимает и возвращет результат.-
         //от Func<out T>(), где T - тип возвращаемого значения, до Func<in T1, in T2,...in T16, out TResult>(), то есть может принимать до 16 параметров.
         //Func<out T> параметр "out" всегда есть.
         public void Example3Func()
@@ -77,7 +77,7 @@ namespace Code_Practice.Delegate
             int DoubleNumber(int n) => 2 * n;
             int SquareNumber(int n) => n * n;
             // EXample 2:
-            //Func<int, int, string> createString = (a, b) => $"{a}{b}";
+            Func<int, int, string> createString = (a, b) => $"{a}{b}";
             //Func<int, int, double> createString = (a, b) => ((double)b / (double)a);
             //Func<int, int, int> createString = (a, b) => ((double)b / (double)a); // not works, raise Exception. Because return value type requires "int", but not "double".
             Console.WriteLine(createString(1, 5));
